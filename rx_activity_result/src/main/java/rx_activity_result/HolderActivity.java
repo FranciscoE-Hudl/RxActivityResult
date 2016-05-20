@@ -72,7 +72,12 @@ public class HolderActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         this.resultCode = resultCode;
         this.data = data;
-        finish();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        });
     }
 
     @Override protected void onDestroy() {
