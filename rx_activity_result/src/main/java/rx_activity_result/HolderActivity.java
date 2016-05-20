@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
+import android.util.Log;
 
 public class HolderActivity extends Activity {
     private static Request request;
@@ -67,11 +68,17 @@ public class HolderActivity extends Activity {
     }
 
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(HolderActivity.class.getSimpleName(), "Result received: " + System.currentTimeMillis());
         super.onActivityResult(requestCode, resultCode, data);
         this.resultCode = resultCode;
         this.data = data;
-        onResult.response(resultCode, data);
         finish();
+    }
+
+    @Override protected void onDestroy() {
+        Log.d(HolderActivity.class.getSimpleName(), "Result forwarded: " + System.currentTimeMillis());
+        super.onDestroy();
+        onResult.response(resultCode, data);
     }
 
     static void setRequest(Request aRequest) {
