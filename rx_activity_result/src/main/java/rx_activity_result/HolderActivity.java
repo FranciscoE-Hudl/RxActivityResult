@@ -70,13 +70,8 @@ public class HolderActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         this.resultCode = resultCode;
         this.data = data;
-
-        finish();
-    }
-
-    @Override protected void onDestroy() {
-        super.onDestroy();
         onResult.response(resultCode, data);
+        finish();
     }
 
     static void setRequest(Request aRequest) {
